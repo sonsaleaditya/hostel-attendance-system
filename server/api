@@ -1,0 +1,284 @@
+### **API Documentation**
+
+---
+
+## **Authentication Routes**
+
+### 1. **Sign In (User)**
+
+- **URL**: `POST /api/users/signin`
+- **Description**: Authenticates a user and returns a token for subsequent requests.
+- **Request Body**:
+  ```json
+  {
+    "reg_no": "2024MMP009",
+    "password": "2024MMP009",
+    "block": "A"
+  }
+  ```
+- **Response**:
+  - **200 OK**:
+    ```json
+    {
+      "message": "User signed in successfully.",
+      "token": "JWT_TOKEN"
+    }
+    ```
+  - **400 Bad Request**: Invalid credentials or missing fields.
+  - **401 Unauthorized**: Invalid credentials.
+
+---
+
+### 2. **Sign Up (User)**
+
+- **URL**: `POST /api/users/signup`
+- **Description**: Registers a new user.
+- **Request Body**:
+  ```json
+  {
+    "name": "Aditya Sonsale",
+    "email": "2021bcs052@sggs.ac.in",
+    "reg_no": "2021BCS052",
+    "password": "2021BCS052",
+    "room_no": "SHTB10"
+  }
+  ```
+- **Response**:
+  - **201 Created**:
+    ```json
+    {
+      "message": "User registered successfully.",
+      "user": {
+        "name": "Aditya Sonsale",
+        "email": "2021bcs052@sggs.ac.in",
+        "reg_no": "2021BCS052",
+        "room_no": "SHTB10"
+      }
+    }
+    ```
+  - **400 Bad Request**: Invalid input or missing required fields.
+  - **409 Conflict**: Email or registration number already exists.
+
+---
+
+## **Admin Routes (Admin Authentication Required)**
+
+### 3. **Admin Sign-Up**
+
+- **URL**: `POST /api/admin/create`
+- **Description**: Registers a new admin.
+- **Request Body**:
+  ```json
+  {
+    "name": "Aditya Sonsale",
+    "email": "aditya@gmail.com",
+    "password": "aditya"
+  }
+  ```
+- **Response**:
+  - **201 Created**:
+    ```json
+    {
+      "message": "Admin registered successfully.",
+      "admin": {
+        "name": "Aditya Sonsale",
+        "email": "aditya@gmail.com"
+      }
+    }
+    ```
+  - **400 Bad Request**: Invalid input or missing required fields.
+  - **409 Conflict**: Email already exists.
+
+---
+
+### 4. **Admin Sign-In**
+
+- **URL**: `POST /api/admin/login`
+- **Description**: Authenticates an admin and returns a token for subsequent admin-specific requests.
+- **Request Body**:
+  ```json
+  {
+    "email": "aditya@gmail.com",
+    "password": "aditya"
+  }
+  ```
+- **Response**:
+  - **200 OK**:
+    ```json
+    {
+      "message": "Admin signed in successfully.",
+      "token": "JWT_TOKEN"
+    }
+    ```
+  - **400 Bad Request**: Invalid credentials or missing fields.
+  - **401 Unauthorized**: Invalid credentials.
+
+---
+
+## **Attendance Routes (Admin Authentication Required)**
+
+### 5. **Mark Attendance**
+
+- **URL**: `POST /api/attendance/mark`
+- **Description**: Marks attendance for a student. Admin only.
+- **Request Body**:
+  ```json
+  {
+    "status": "Present"
+  }
+  ```
+- **Response**:
+  - **201 Created**:
+    ```json
+    {
+      "message": "Attendance marked successfully.",
+      "attendanceEntry": {
+        "student": "Student ID",
+        "block": "Block A",
+        "date": "2024-12-19",
+        "status": "Present"
+      }
+    }
+    ```
+  - **400 Bad Request**: Invalid input or missing fields.
+  - **409 Conflict**: Attendance already marked for the specified date.
+
+---
+
+## **Block-Wise Attendance (Admin Authentication Required)**
+
+### 6. **Get Today's Present Students (Block-wise)**
+
+- **URL**: `GET /api/blocks/:block/present`
+- **Description**: Fetches all present students for the current day in the specified block.
+- **Request Parameters**: `block` (e.g., `A`, `B`, `C`, `D`)
+- **Response**:
+  - **200 OK**:
+    ```json
+    {
+      "block": "A",
+      "date": "2024-12-19T00:00:00.000Z",
+      "presentStudents": [
+        {
+          "name": "John Doe",
+          "reg_no": "2024MMP001",
+          "room_no": "SHTB1"
+        },
+        {
+          "name": "Jane Smith",
+          "reg_no": "2024MMP002",
+          "room_no": "SHTB2"
+        }
+      ]
+    }
+    ```
+  - **404 Not Found**: No present students for today.
+
+---
+
+### 7. **Get Today's Absent Students (Block-wise)**
+
+- **URL**: `GET /api/blocks/:block/absent`
+- **Description**: Fetches all absent students for the current day in the specified block.
+- **Request Parameters**: `block` (e.g., `A`, `B`, `C`, `D`)
+- **Response**:
+  - **200 OK**:
+    ```json
+    {
+      "block": "A",
+      "date": "2024-12-19T00:00:00.000Z",
+      "absentStudents": [
+        {
+          "name": "Alice Johnson",
+          "reg_no": "2024MMP003",
+          "room_no": "SHTB3"
+        },
+        {
+          "name": "Bob Brown",
+          "reg_no": "2024MMP004",
+          "room_no": "SHTB4"
+        }
+      ]
+    }
+    ```
+  - **404 Not Found**: No absent students for today.
+
+---
+
+## **Date-Wise Attendance (Admin Authentication Required)**
+
+### 8. **Get Present Students by Date**
+
+- **URL**: `GET /api/blocks/:block/present/:date`
+- **Description**: Fetches all present students for the given date in the specified block.
+- **Request Parameters**: 
+  - `block` (e.g., `A`, `B`, `C`, `D`)
+  - `date` (in `YYYY-MM-DD` format)
+- **Response**:
+  - **200 OK**:
+    ```json
+    {
+      "block": "A",
+      "date": "2024-12-19",
+      "presentStudents": [
+        {
+          "name": "John Doe",
+          "reg_no": "2024MMP001",
+          "room_no": "SHTB1"
+        },
+        {
+          "name": "Jane Smith",
+          "reg_no": "2024MMP002",
+          "room_no": "SHTB2"
+        }
+      ]
+    }
+    ```
+  - **404 Not Found**: No present students for the given date.
+
+---
+
+### 9. **Get Absent Students by Date**
+
+- **URL**: `GET /api/blocks/:block/absent/:date`
+- **Description**: Fetches all absent students for the given date in the specified block.
+- **Request Parameters**: 
+  - `block` (e.g., `A`, `B`, `C`, `D`)
+  - `date` (in `YYYY-MM-DD` format)
+- **Response**:
+  - **200 OK**:
+    ```json
+    {
+      "block": "B",
+      "date": "2024-12-19",
+      "absentStudents": [
+        {
+          "name": "Alice Johnson",
+          "reg_no": "2024MMP003",
+          "room_no": "SHTB3"
+        },
+        {
+          "name": "Bob Brown",
+          "reg_no": "2024MMP004",
+          "room_no": "SHTB4"
+        }
+      ]
+    }
+    ```
+  - **404 Not Found**: No absent students for the given date.
+
+---
+
+## **Middleware Details**
+
+- **Authentication Middleware**: Protects routes by ensuring the user or admin is logged in and has a valid JWT token.
+- **`isAdmin` Middleware**: Ensures that the requesting user has admin privileges before allowing access to admin-specific routes.
+
+---
+
+### **Note:**
+- **All Admin Routes**: Requires an authenticated admin user with the `isAdmin` role to access the functionality.
+- **User Routes**: Standard user authentication is required (e.g., for marking attendance and accessing data).
+
+---
+

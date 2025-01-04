@@ -1,0 +1,156 @@
+/* Landing Page */
+.landing-page {
+    min-height: 100vh;
+    background: #ffffff;
+  }
+  
+  /* Hero Section */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    background: #ffffff;
+  }
+  
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem;
+    gap: 2rem;
+  }
+  
+  .hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #000000;
+  }
+  
+  .hero p {
+    font-size: 1.25rem;
+    color: #000000;
+    max-width: 500px;
+  }
+  
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 2px solid #000000;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+  
+  .button.primary {
+    background: #000000;
+    color: #ffffff;
+  }
+  
+  .button.primary:hover {
+    background: #ffffff;
+    color: #000000;
+    box-shadow: 4px 4px 0 #000000;
+  }
+  
+  .button.secondary {
+    background: #ffffff;
+    color: #000000;
+  }
+  
+  .button.secondary:hover {
+    box-shadow: 4px 4px 0 #000000;
+  }
+  
+  .hero-image {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Features Section */
+  .features {
+    padding: 4rem 2rem;
+    background: #ffffff;
+  }
+  
+  .features h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #000000;
+  }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .feature-card {
+    padding: 2rem;
+    border: 2px solid #000000;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+  
+  .feature-card:hover {
+    box-shadow: 8px 8px 0 #000000;
+    transform: translate(-4px, -4px);
+  }
+  
+  .feature-icon {
+    margin-bottom: 1rem;
+    color: #000000;
+  }
+  
+  .feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #000000;
+  }
+  
+  .feature-card p {
+    color: #000000;
+    line-height: 1.6;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero {
+      grid-template-columns: 1fr;
+    }
+    
+    .hero-content {
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+    
+    .hero-buttons {
+      justify-content: center;
+    }
+    
+    .hero-image {
+      display: none;
+    }
+  }
