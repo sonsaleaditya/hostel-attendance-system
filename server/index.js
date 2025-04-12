@@ -51,6 +51,7 @@ const userRoute = require('./routes/user.routes.js');
 const attendanceRoute = require('./routes/attendance.routes.js');
 const blockRoute = require('./routes/block.routes.js'); // Add block routes
 const adminRoutes = require('./routes/admin.routes');
+const mailRoutes = require("./routes/sendMail.routes.js");
 // Connect to the database
 require('./config/db')();
 
@@ -79,6 +80,7 @@ app.use(cookieParser());
 app.use('/api/users', userRoute);
 app.use('/api/attendance', attendanceRoute);
 app.use('/api/blocks', blockRoute); // Block-wise student routes
+app.use('/api/mail',mailRoutes) // Block-wise student routes
 
 app.use('/api/admin', adminRoutes);
 
