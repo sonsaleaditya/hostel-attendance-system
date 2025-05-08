@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import './SignUp.css';
-import { fetchData } from '../utils/api'; // Import the fetchData function
-import { useNavigate } from 'react-router-dom';
+import { fetchData } from '../utils/api';
+import { useNavigate, Link } from 'react-router-dom'; // Added Link
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
   const [name, setName] = useState('');
@@ -17,24 +18,26 @@ const SignUp = () => {
     e.preventDefault();
 
     const userData = {
-      name: name,
-      email: email,
+      name,
+      email,
       reg_no: regNo,
-      password: password,
+      password,
       room_no: roomNo,
     };
 
     try {
       const response = await fetchData('/api/users/signup', {
         method: 'POST',
-        data: userData, // Send user data as request body
+        data: userData,
       });
 
       if (response) {
-        navigate('/signin'); // Redirect to sign-in page after successful registration
+        toast.success('User Registered Successfully!');
+        navigate('/signin');
       }
     } catch (err) {
-      setError(err.message); // Display the error message from the API
+      toast.error('Registration failed!');
+      setError(err.message);
     }
   };
 
@@ -90,7 +93,12 @@ const SignUp = () => {
           </div>
           <button type="submit">Sign Up</button>
         </form>
+
         {error && <p className="error">{error}</p>}
+
+        <div className="signin-link">
+          Already have an account? <Link to="/signin">Sign In</Link>
+        </div>
       </div>
     </div>
   );

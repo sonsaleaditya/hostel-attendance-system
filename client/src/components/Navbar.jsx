@@ -1,15 +1,20 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, Home, UserCheck, Key, LogOut } from 'lucide-react';
 import { useState } from 'react';
 import '../styles/Navbar.css';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
   const token = localStorage.getItem('authToken');
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
-    window.location.href = '/signin';
+    toast.success('Logged out successfully!');
+    setTimeout(() => {
+      navigate('/signin');
+    }, 500); // Delay to allow toast display
   };
 
   return (

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { User, Clock, Shield, CheckCircle } from 'lucide-react'; // Assuming you are using these icons
 import { fetchData } from '../utils/api';
 import '../styles/UserDashboard.css';
+import { toast } from 'react-toastify';
 
 const UserDashboard = () => {
   const [userInfo, setUserInfo] = useState({ name: '', reg_no: '', block: '' });
@@ -73,10 +74,12 @@ const UserDashboard = () => {
           newPassword: newPassword,
         },
       });
-      alert(data.message);
+      toast.success(data.message);
+      toast.success('Password updated successfully!');
       setNewPassword('');
       setCurrentPassword('');
     } catch (err) {
+      toast.error('Failed to update password!');
       console.error('Error updating password:', err);
       setError(err.message);
     }
@@ -89,7 +92,7 @@ const UserDashboard = () => {
         method: 'POST',
         data: { status: 'Present' },
       });
-      alert(data.message);
+      toast.success(data.message);
       setShowSuccess(true); // Show success animation
       checkAttendance();
     } catch (err) {

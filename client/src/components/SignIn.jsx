@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { fetchData } from '../utils/api';
 import '../styles/SignIn.css';
+import { toast } from 'react-toastify';
 
 const SignIn = () => {
   const [regNo, setRegNo] = useState('');
@@ -19,8 +20,10 @@ const SignIn = () => {
       });
       
       localStorage.setItem('authToken', data.token);
+      toast.success('Sign in successful!');
       navigate('/user/dashboard');
     } catch (err) {
+      toast.error('Sign in failed!');
       setError(err.message || 'Failed to sign in');
     }
   };
@@ -72,8 +75,12 @@ const SignIn = () => {
             Sign In
           </button>
         </form>
-        
+
         {error && <div className="error-message">{error}</div>}
+
+        <div className="signup-link">
+          Don't have an account? <Link to="/signup">Sign Up</Link>
+        </div>
       </div>
     </div>
   );

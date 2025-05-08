@@ -1,3 +1,5 @@
 # Ignore the data folder and data.zip file
 data/
 data.zip
+api
+/api

@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchData } from '../utils/api';
+import {toast} from 'react-toastify';
 
 const MarkAttendance = () => {
   const [status, setStatus] = useState('Present');
@@ -17,10 +18,12 @@ const MarkAttendance = () => {
         data: { status },
       });
 
-      alert('Attendance marked successfully!');
+      toast.success('Attendance marked successfully!');
+
       navigate('/dashboard'); // Redirect to dashboard after success
     } catch (err) {
       setError(err.message);
+      toast.error('Failed to mark attendance!');
     }
   };
 

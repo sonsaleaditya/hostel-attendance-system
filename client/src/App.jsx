@@ -5,10 +5,13 @@ import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import MarkAttendance from './components/MarkAttendance';
 import LandingPage from './components/LandingPage.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the styles
 
 const App = () => {
   return (
     <Router>
+       <ToastContainer />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<LandingPage />} />
