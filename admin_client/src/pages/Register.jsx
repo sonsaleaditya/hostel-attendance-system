@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerAdmin } from '../services/admin';
 import '../styles/Register.css'; // Import scoped CSS
+import { toast } from 'react-toastify';
 
 function Register() {
   const navigate = useNavigate();
@@ -20,8 +21,10 @@ function Register() {
 
     try {
       await registerAdmin(formData);
+      toast.success('Registration successful! Please log in.');
       navigate('/'); // Redirect to the login page after successful registration
     } catch (err) {
+      toast.error('Registration failed. Please try again.');
       setError(err.response?.data?.message || 'Registration failed');
     } finally {
       setLoading(false);

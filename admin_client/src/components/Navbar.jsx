@@ -2,6 +2,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { logoutAdmin } from '../services/admin';
 import './Navbar.css';
+import { toast } from 'react-toastify';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ function Navbar() {
 
   const handleLogout = () => {
     logoutAdmin(); // Remove token
+    toast.success('Logout successful!');
     navigate('/login'); // Redirect to login page
   };
 

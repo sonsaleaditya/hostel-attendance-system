@@ -2,7 +2,7 @@ import sendMail from "../services/sendMail";
 import React, { useState } from "react";
 import './sendMail.css';
 import { getBlockPresent, getBlockAbsent } from '../services/attendance'; 
-
+import { toast } from "react-toastify";
 function SendMail() {
     const [formData, setFormData] = useState({
         to: "abs@gmail.com",
@@ -65,6 +65,7 @@ function SendMail() {
 
             if (response.success) {
                 setStatus("Email sent successfully!");
+                toast.success("Email sent successfully!");
             } else {
                 setStatus("Failed to send email.");
             }

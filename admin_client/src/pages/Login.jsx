@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginAdmin } from '../services/admin';
 import '../styles/Login.css';
+import { toast } from 'react-toastify';
 
 function Login() {
   const navigate = useNavigate();
@@ -23,12 +24,14 @@ function Login() {
       const response = await loginAdmin(formData);
       const { token } = response;
       if (token) {
+        toast.success('Login successful!');
         localStorage.setItem('adminToken', token);
         navigate('/dashboard');
       } else {
         throw new Error('Login failed: No token provided');
       }
     } catch (err) {
+      toast.error('Login failed. Please check your credentials.');
       setError(err.message || 'Invalid credentials');
     } finally {
       setLoading(false);

@@ -9,6 +9,9 @@ import BlockAttendance from './pages/BlockAttendance';
 import DateAttendance from './pages/DateAttendance';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import SendMail from './components/SendMail.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import the styles
+
 import './App.css';
 
 function App() {
@@ -16,6 +19,7 @@ function App() {
     <Router>
       <div className="app">
         <Navbar />
+        <ToastContainer />
         <main className="main-content">
           <Routes>
             <Route path="/" element={<Landing />} />
